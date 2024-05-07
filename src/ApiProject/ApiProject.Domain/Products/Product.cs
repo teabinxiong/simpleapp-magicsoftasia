@@ -13,13 +13,13 @@ namespace ApiProject.Domain.Products
 
 		public string Description { get; private set; }
 
-		public Price Price { get; private set; }
+		public Money Price { get; private set; }
 
 		public Category Category { get; private set; }
 
-		public Price Tax { get; private set; }
+		public Money Tax { get; private set; }
 
-		public Price AmountAfterTax { get; private set; }
+		public Money AmountAfterTax { get; private set; }
 
 		public DateTime CreatedOnUtc { get; private set; }
 	}

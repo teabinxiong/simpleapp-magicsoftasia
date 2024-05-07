@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace ApiProject.Domain.Products
 {
-	public record Price(decimal Amount, Currency Currency);
+	public record Money(decimal Amount, Currency Currency);
 }
