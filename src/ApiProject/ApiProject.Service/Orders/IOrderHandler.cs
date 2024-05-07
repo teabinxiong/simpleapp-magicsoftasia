@@ -12,6 +12,6 @@ namespace ApiProject.Service.Orders
 	{
 		CustomResult<Guid> PlaceOrder(PlaceOrderCommand placeOrderCommand);
 
-		CustomResult<Order> GetOrder(GetOrderQuery getOrderQuery);
+		Task<CustomResult<List<Order>>> GetOrders(GetOrdersQuery getOrderQuery, CancellationToken ct = default);
 	}
 }

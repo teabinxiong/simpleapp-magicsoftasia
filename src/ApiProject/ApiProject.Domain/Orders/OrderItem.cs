@@ -11,14 +11,22 @@ namespace ApiProject.Domain.Orders
 {
 	public sealed class OrderItem : Entity
 	{
-
 		public Money TotalAmount { get; private set; }
 
 		public int Quantity { get; private set; }
 
 		public Product Product { get; private set; }
 
-		private OrderItem(Product product, int quantity, Money totalAmount) {
+		public Guid OrderId { get; set; }
+
+		public Guid ProductId { get; private set; }
+
+		public OrderItem()
+        {
+            
+        }
+
+        private OrderItem(Product product, int quantity, Money totalAmount) {
 			Product = product;
 			Quantity = quantity;
 			TotalAmount = totalAmount;

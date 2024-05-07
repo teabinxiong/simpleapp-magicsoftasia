@@ -10,7 +10,7 @@ namespace ApiProject.Service.Orders
 {
 	public record PlaceOrderCommand(
 			List<OrderItem> OrderItems,
-			Money Tax,
+			decimal Tax,
 			Guid UserId
 		);
 }

@@ -1,4 +1,7 @@
 
+using ApiProject.Api.Extensions;
+using ApiProject.Infrastructure;
+using ApiProject.Service;
 namespace ApiProject.Api
 {
 	public class Program
@@ -13,6 +16,11 @@ namespace ApiProject.Api
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
+			builder.Services.InstallInfrastructure(builder.Configuration);
+			builder.Services.InstallApplicationServices();
+			
+
+
 
 			var app = builder.Build();
 
@@ -21,6 +29,9 @@ namespace ApiProject.Api
 			{
 				app.UseSwagger();
 				app.UseSwaggerUI();
+
+				app.ApplyMigrations();
+				app.SeedData();
 			}
 
 			app.UseHttpsRedirection();

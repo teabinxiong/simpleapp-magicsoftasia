@@ -20,7 +20,7 @@ namespace ApiProject.Domain.Orders
 			Guid id,
 			List<OrderItem> orderItems,
 			OrderStatus status,
-			Money tax,
+			decimal tax,
 			DateTime createdOnUtc,
 			Guid userId
 			)
@@ -35,7 +35,7 @@ namespace ApiProject.Domain.Orders
 
 		public List<OrderItem> OrderItems { get;private set; }
 
-		public Money Tax { get; private set; }
+		public decimal Tax { get; private set; }
 
 		public Money TotalPrice { get; private set; }
 
@@ -60,7 +60,7 @@ namespace ApiProject.Domain.Orders
 
 		public static Order Place(
 			List<OrderItem> orderItems,
-			Money tax,
+			decimal tax,
 			Guid userId,
 			DateTime utcNow,
 			OrderService orderService

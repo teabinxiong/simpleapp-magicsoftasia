@@ -9,6 +9,6 @@ namespace ApiProject.Domain.Accounts
 {
 	public interface IAccountingRepository
 	{
-		Money GetTaxAmount(Currency currency);
+		decimal GetTaxAmount(Currency currency);
 	}
 }

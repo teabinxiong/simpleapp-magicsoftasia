@@ -1,9 +1,11 @@
 ﻿using ApiProject.Domain.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ApiProject.Domain.Products
 {
@@ -16,7 +18,7 @@ namespace ApiProject.Domain.Products
 
 		public Money Price { get; private set; }
 
-		public Category Category { get; private set; }
+		public string Category { get; private set; }
 
 		public DateTime CreatedOnUtc { get; private set; }
 
@@ -30,7 +32,7 @@ namespace ApiProject.Domain.Products
 			string name,
 			string description,
 			Money price,
-			Category category,
+			string category,
 			DateTime createdOnUtc
 			)
 		{
@@ -41,5 +43,25 @@ namespace ApiProject.Domain.Products
 			Category = category;
 			CreatedOnUtc = createdOnUtc;
 		}
+
+		public static Product Create(
+			Guid id,
+			string name,
+			string description,
+			Money price,
+			string category,
+			DateTime createdOnUtc
+			)
+		{
+			return new Product(
+			id,
+			name,
+			description,
+			price,
+			category,
+			createdOnUtc
+		);
+		}
+
 	}
 }

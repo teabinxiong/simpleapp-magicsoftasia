@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace ApiProject.Service.Orders
 {
-	public record GetOrderQuery(Guid Id);
+	public record GetOrdersQuery(Guid Id);
 }

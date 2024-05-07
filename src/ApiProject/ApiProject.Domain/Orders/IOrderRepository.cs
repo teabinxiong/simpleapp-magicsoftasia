@@ -9,8 +9,11 @@ namespace ApiProject.Domain.Orders
 	public interface IOrderRepository
 	{
 		bool IsOrderItemsValid(List<OrderItem> orderItems);
-		Order GetOrderById(Guid id);
+		Task<Order> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
 		void Add(Order order);
+
+		Task<List<Order>> GetAll(
+		   CancellationToken cancellationToken = default);
 	}
 }

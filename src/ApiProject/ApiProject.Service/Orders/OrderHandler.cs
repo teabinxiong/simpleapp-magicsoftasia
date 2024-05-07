@@ -30,13 +30,13 @@ namespace ApiProject.Service.Orders
 		}
 
 		// Get Order
-		public CustomResult<Order> GetOrder(GetOrderQuery getOrderQuery)
+		public async  Task<CustomResult<List<Order>>> GetOrders(GetOrdersQuery getOrdersQuery, CancellationToken ct = default)
 		{
-			var order =  _orderRepository.GetOrderById(getOrderQuery.Id);
+			var order = await _orderRepository.GetAll(ct);
 
 			if(order == null)
 			{
-				return CustomResult.Failure<Order>(OrderErrors.NotFound);
+				return CustomResult.Failure<List<Order>>(OrderErrors.NotFound);
 			}
 
 			return order;
