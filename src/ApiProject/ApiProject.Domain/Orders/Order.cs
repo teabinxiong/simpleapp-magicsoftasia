@@ -62,13 +62,16 @@ namespace ApiProject.Domain.Orders
 			List<OrderItem> orderItems,
 			Money tax,
 			Guid userId,
-			DateTime utcNow
+			DateTime utcNow,
+			OrderService orderService
 			)
 		{
 			// calculate total price & total price after tax
+			orderService.CalculatePrice(orderItems,tax);
 
+			// TODO: Raise domain event
 
-			// 
+			// return order object
 			var order = new Order(
 				Guid.NewGuid(),
 				orderItems,
@@ -79,6 +82,21 @@ namespace ApiProject.Domain.Orders
 				);
 
 			return order;
+		}
+
+		public CustomResult Confirm(DateTime utcNow)
+		{
+			if (Status != OrderStatus.Accepted)
+			{
+				return CustomResult.Failure(OrderErrors.NotAccepted);
+			}
+
+			Status = OrderStatus.Confirmed;
+			ConfirmedOnUtc = utcNow;
+
+			//TODO: Raise Domain Event
+
+			return CustomResult.Success();
 		}
 	}
 }
