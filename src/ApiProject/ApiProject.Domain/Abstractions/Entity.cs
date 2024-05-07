@@ -8,14 +8,14 @@ namespace ApiProject.Domain.Abstractions
 {
 	public abstract class Entity
 	{
-		public long Id { get; set; }
+		public Guid Id { get; set; }
 
 		protected Entity()
 		{
 
 		}
 
-		protected Entity(long id)
+		protected Entity(Guid id)
 		{
 			Id = id;
 		}

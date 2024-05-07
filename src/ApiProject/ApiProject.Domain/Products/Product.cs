@@ -9,6 +9,7 @@ namespace ApiProject.Domain.Products
 {
 	public class Product: Entity
 	{
+
 		public string Name { get; private set; }
 
 		public string Description { get; private set; }
@@ -17,10 +18,28 @@ namespace ApiProject.Domain.Products
 
 		public Category Category { get; private set; }
 
-		public Money Tax { get; private set; }
-
-		public Money AmountAfterTax { get; private set; }
-
 		public DateTime CreatedOnUtc { get; private set; }
+
+		private Product()
+		{
+
+		}
+
+		private Product(
+			Guid id,
+			string name,
+			string description,
+			Money price,
+			Category category,
+			DateTime createdOnUtc
+			)
+		{
+			Id = id;
+			Name = name;
+			Description = description;
+			Price = price;
+			Category = category;
+			CreatedOnUtc = createdOnUtc;
+		}
 	}
 }
