@@ -49,7 +49,7 @@ namespace ApiProject.Domain.UnitTests.Orders
 
 
 		[Fact]
-		public void CancelOrderAfterConfirmOrderShouldBeFailed()
+		public void CancelOrderAfterOrderConfirmedShouldBeFailed()
 		{
 			var productA = Product.Create(
 				Guid.NewGuid(),
@@ -82,6 +82,41 @@ namespace ApiProject.Domain.UnitTests.Orders
 			
 			Assert.Equal(OrderErrors.UnableToCancel.Code, cancelResult.Error.Code);
 		
+		}
+
+		[Fact]
+		public void SetOrderDeliveredBeforeOrderConfirmedShouldBeFailed()
+		{
+			var productA = Product.Create(
+				Guid.NewGuid(),
+				"product A",
+				"product Description A",
+				Money.From(10, Currency.SGD),
+				"Cloth",
+				DateTime.UtcNow
+			);
+
+			var productB = Product.Create(
+				Guid.NewGuid(),
+				"product B",
+				"product Description B",
+				Money.From(20, Currency.SGD),
+				"Cloth",
+				DateTime.UtcNow
+			);
+
+			List<OrderItem> orderItems = new List<OrderItem>();
+
+			orderItems.Add(OrderItem.Create(productA, 2));
+
+			orderItems.Add(OrderItem.Create(productB, 3));
+
+			var order = Order.Place(orderItems, 0.10m, Guid.NewGuid(), DateTime.UtcNow, new PricingService());
+
+			var setDeliveredResult = order.SetDelivered(DateTime.UtcNow);
+
+			Assert.Equal(OrderErrors.NotConfirmed.Code, setDeliveredResult.Error.Code);
+
 		}
 	}
 }

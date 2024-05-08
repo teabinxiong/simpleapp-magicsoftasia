@@ -104,6 +104,21 @@ namespace ApiProject.Domain.Orders
 			return CustomResult.Success();
 		}
 
+		public CustomResult SetDelivered(DateTime utcNow)
+		{
+			if (Status != OrderStatus.Confirmed)
+			{
+				return CustomResult.Failure(OrderErrors.NotConfirmed);
+			}
+
+			Status = OrderStatus.Delivered;
+			DeliveredOnUtc = utcNow;
+
+			//TODO: Raise Domain Event
+
+			return CustomResult.Success();
+		}
+
 
 		public CustomResult Cancel(DateTime utcNow)
 		{
