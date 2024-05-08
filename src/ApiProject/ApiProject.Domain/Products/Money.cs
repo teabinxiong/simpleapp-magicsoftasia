@@ -14,6 +14,11 @@ namespace ApiProject.Domain.Products
 
 		public bool IsZero() => this == Zero();
 
+		public static Money From(decimal amount, Currency currency)
+		{
+			return new Money(amount, currency);
+		}
+
 		public static Money operator +(Money first, Money second)
 		{
 			if (first.Currency != second.Currency)
