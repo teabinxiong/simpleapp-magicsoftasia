@@ -10,7 +10,7 @@ This repository contains a sample Api Project.
 1. **Api Project**: 
    - [ApiProject](./src/ApiProject)
 
-##  Structure of this project
+##  Answer to the question - **Tell us why you choose to design and code in such way in simple, understandable language.**
 1. The project will become more maintainable by using clean architecture, as the dependencies are point inward in 1 direction.
 2. [Domain Layer](./src/ApiProject/ApiProject.Domain) - A Rich Domain Model was utilized in the project to better separate of reponsibilities between the application service layer and the domain layer.
 3. [Application Service Layer](./src/ApiProject/ApiProject.Service) - The Application Service layer is where the Business Logics sit. Within this layer, we delegate the majority of the implementation such as Repositories,Email,even Clock to the infrastructure layer. This prevent third-party dependencies from polluting the Business Logic layer. Therefore in the event of switching email vendor, minimal or no required in the business layer.
