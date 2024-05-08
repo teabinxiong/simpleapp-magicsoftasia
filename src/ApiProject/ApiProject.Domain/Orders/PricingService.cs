@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApiProject.Domain.Orders
 {
-	public sealed class OrderService
+	public sealed class PricingService
 	{
 		public PricingDetails CalculatePrice(List<OrderItem> orderItems, Decimal tax)
 		{

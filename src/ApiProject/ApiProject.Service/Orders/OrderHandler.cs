@@ -4,6 +4,7 @@ using ApiProject.Domain.Orders;
 using ApiProject.Domain.Products;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,23 +15,26 @@ namespace ApiProject.Service.Orders
 	{
 		private readonly IOrderRepository _orderRepository;
 		private readonly IAccountingRepository _accountingRepository;
-		private readonly OrderService _orderService;
+		private readonly PricingService _orderService;
 		private readonly IDateTimeProvider _dateTimeProvider;
+		private readonly IUnitOfWork _unitOfWork;
 		public OrderHandler(
 			IOrderRepository orderRepository,
 			IAccountingRepository accountingRepository,
-			OrderService orderService,
-			IDateTimeProvider dateTimeProvider
+			PricingService orderService,
+			IDateTimeProvider dateTimeProvider, 
+			IUnitOfWork unitOfWork
 			)
         {
 			_orderRepository = orderRepository;
 			_accountingRepository = accountingRepository;
 			_orderService = orderService;
 			_dateTimeProvider = dateTimeProvider;
+			_unitOfWork = unitOfWork;
 		}
 
 		// Get Order
-		public async  Task<CustomResult<List<Order>>> GetOrders(GetOrdersQuery getOrdersQuery, CancellationToken ct = default)
+		public async  Task<CustomResult<List<Order>>> GetOrders(GetAllOrdersQuery getOrdersQuery, CancellationToken ct = default)
 		{
 			var order = await _orderRepository.GetAll(ct);
 
@@ -43,19 +47,32 @@ namespace ApiProject.Service.Orders
 		}
 
 		// Place Order
-		public CustomResult<Guid> PlaceOrder(PlaceOrderCommand placeOrderCommand)
+		public async Task<CustomResult<Guid>> PlaceOrder(PlaceOrderCommand placeOrderCommand)
 		{
 			// Get tax
 			_accountingRepository.GetTaxAmount(Currency.SGD);
 
-			// verify if order items is valid
-			if (!_orderRepository.IsOrderItemsValid(placeOrderCommand.OrderItems))
+			var orderItems = new List<OrderItem>();
+
+			// compose order items
+			foreach(var item in placeOrderCommand.ProductItems)
 			{
-				return CustomResult.Failure<Guid>(OrderErrors.InvalidOrderItems);
+				orderItems.Add(OrderItem.Create(
+					Product.Create(
+						item.ProductId,
+						item.Name,
+						item.Description,
+						new Money(item.Price, Currency.FromCode(item.Currency)),
+						item.Category,
+						_dateTimeProvider.UtcNow()
+						),
+					item.Quantity
+					));
 			}
 
+
 			var order = Order.Place(
-					placeOrderCommand.OrderItems,
+					orderItems,
 					placeOrderCommand.Tax,
 					placeOrderCommand.UserId,
 					_dateTimeProvider.UtcNow(),
@@ -63,6 +80,8 @@ namespace ApiProject.Service.Orders
 
 			// Add Order
 			_orderRepository.Add(order);
+
+			await _unitOfWork.SaveChangesAsync();
 
 			return order.Id;
 

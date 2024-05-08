@@ -10,7 +10,7 @@ namespace ApiProject.Api.Extensions
 		public static void SeedData(this IApplicationBuilder app)
 		{
 			using var scope = app.ApplicationServices.CreateScope();
-			var orderService = scope.ServiceProvider.GetRequiredService<OrderService>();
+			var orderService = scope.ServiceProvider.GetRequiredService<PricingService>();
 			using (var context = new ApplicationDbContext(
 				scope.ServiceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
 			{

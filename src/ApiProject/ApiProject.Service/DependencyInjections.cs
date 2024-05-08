@@ -13,7 +13,7 @@ namespace ApiProject.Service
 	{
 		public static IServiceCollection InstallApplicationServices(this IServiceCollection services)
 		{
-			services.AddTransient<OrderService>();
+			services.AddTransient<PricingService>();
 
 			services.AddTransient<IOrderHandler, OrderHandler>();
 

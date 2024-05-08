@@ -10,8 +10,8 @@ namespace ApiProject.Service.Orders
 {
 	public interface IOrderHandler
 	{
-		CustomResult<Guid> PlaceOrder(PlaceOrderCommand placeOrderCommand);
+		Task<CustomResult<Guid>> PlaceOrder(PlaceOrderCommand placeOrderCommand);
 
-		Task<CustomResult<List<Order>>> GetOrders(GetOrdersQuery getOrderQuery, CancellationToken ct = default);
+		Task<CustomResult<List<Order>>> GetOrders(GetAllOrdersQuery getOrderQuery, CancellationToken ct = default);
 	}
 }

@@ -12,7 +12,7 @@ namespace ApiProject.Infrastructure.Repositories
 	{
 		public decimal GetTaxAmount(Currency currency)
 		{
-			return 0.06m;
+			return 0.06m; // 6%
 		}
 	}
 }

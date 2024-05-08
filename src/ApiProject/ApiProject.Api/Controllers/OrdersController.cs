@@ -22,11 +22,22 @@ namespace ApiProject.Api.Controllers
 			_orderHandler = orderHandler;
 		}
 
-		[HttpGet("GetOrder", Name = "GetOrder")]
-		public async Task<IActionResult> GetOrder()
+		[HttpGet("GetAllOrder", Name = "GetOrder")]
+		public async Task<IActionResult> GetAllOrder()
 		{
-			var order = await _orderHandler.GetOrders(new GetOrdersQuery(Guid.NewGuid()));
+			var order = await _orderHandler.GetOrders(new GetAllOrdersQuery());
 			if(order.Status == ResultStatus.Failed)
+			{
+				return Ok(CustomResult.Failure(order.Error));
+			}
+			return Ok(CustomResult.Success(order.Result));
+		}
+
+		[HttpPost("PlaceOrder", Name = "PlaceOrder")]
+		public async Task<IActionResult> PlaceOrder([FromBody]PlaceOrderCommand placeOrderCommand)
+		{
+			var order = await _orderHandler.PlaceOrder(placeOrderCommand);
+			if (order.Status == ResultStatus.Failed)
 			{
 				return Ok(CustomResult.Failure(order.Error));
 			}

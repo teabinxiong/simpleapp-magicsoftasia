@@ -63,11 +63,13 @@ namespace ApiProject.Domain.Orders
 			decimal tax,
 			Guid userId,
 			DateTime utcNow,
-			OrderService orderService
+			PricingService pricingService
 			)
 		{
+			
 			// calculate total price & total price after tax
-			orderService.CalculatePrice(orderItems,tax);
+			var pricingDetails = pricingService.CalculatePrice(orderItems,tax);
+
 
 			// TODO: Raise domain event
 
@@ -80,7 +82,10 @@ namespace ApiProject.Domain.Orders
 				utcNow,
 				userId
 				);
-
+			
+			order.TotalPrice = pricingDetails.TotalPrice;
+			order.TotalPriceAfterTax = pricingDetails.TotalPriceAfterTax;
+			
 			return order;
 		}
 
