@@ -15,8 +15,8 @@ namespace ApiProject.Domain.Orders
 			var totalPriceAfterTax = Money.Zero();
 			var currency = orderItems.First().Product.Price.Currency;
 
-			totalPrice = new Money(orderItems.Sum(a => a.Product.Price.Amount), currency);
-			totalPriceAfterTax = new Money(orderItems.Sum(a => a.Product.Price.Amount * (1 - tax)), currency);
+			totalPrice = new Money(orderItems.Sum(a => a.Product.Price.Amount * a.Quantity), currency);
+			totalPriceAfterTax = new Money(orderItems.Sum(a => (a.Product.Price.Amount * (1 - tax)) * a.Quantity), currency);
 
 			return new PricingDetails(totalPrice, totalPriceAfterTax);
 		}

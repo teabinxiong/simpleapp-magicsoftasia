@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Orders\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ApiProject.Domain\ApiProject.Domain.csproj" />
   </ItemGroup>
 
