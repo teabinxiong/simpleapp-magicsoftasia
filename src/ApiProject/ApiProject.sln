@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiProject.Service", "ApiPr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiProject.Infrastructure", "ApiProject.Infrastructure\ApiProject.Infrastructure.csproj", "{9650D13C-8D0C-4052-8F04-0F0904C4432D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiProject.Domain.Tests", "ApiProject.Domain.Tests\ApiProject.Domain.Tests.csproj", "{DFB392EB-DBBF-46D5-AB84-3AE503072944}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiProject.Domain.UnitTests", "ApiProject.Domain.Tests\ApiProject.Domain.UnitTests.csproj", "{DFB392EB-DBBF-46D5-AB84-3AE503072944}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

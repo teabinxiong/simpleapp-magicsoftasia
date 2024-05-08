@@ -103,5 +103,43 @@ namespace ApiProject.Domain.Orders
 
 			return CustomResult.Success();
 		}
+
+
+		public CustomResult Cancel(DateTime utcNow)
+		{
+			if (
+				Status == OrderStatus.Completed ||
+				Status == OrderStatus.Confirmed ||
+				Status == OrderStatus.Delivered ||
+				Status == OrderStatus.Cancelled 
+				)
+			{
+				return CustomResult.Failure(OrderErrors.UnableToCancel);
+			}
+
+			Status = OrderStatus.Cancelled;
+			CancelledOnUtc = utcNow;
+
+			//TODO: Raise Domain Event
+
+			return CustomResult.Success();
+		}
+
+		public CustomResult Completed(DateTime utcNow)
+		{
+			if (
+				Status != OrderStatus.Delivered 
+				)
+			{
+				return CustomResult.Failure(OrderErrors.UnableToMarkComplete);
+			}
+
+			Status = OrderStatus.Completed;
+			CancelledOnUtc = utcNow;
+
+			//TODO: Raise Domain Event
+
+			return CustomResult.Success();
+		}
 	}
 }

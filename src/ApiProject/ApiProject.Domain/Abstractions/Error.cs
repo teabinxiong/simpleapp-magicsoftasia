@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApiProject.Domain.Abstractions
 {
-	public record Error(string code, string name)
+	public record Error(string Code, string Name)
 	{
 		public static Error None = new(string.Empty, string.Empty);
 

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiProject.Domain.Tests.Orders
+namespace ApiProject.Domain.UnitTests.Orders
 {
 	public class PricingServiceTests
 	{

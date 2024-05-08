@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiProject.Domain.Tests.Products
+namespace ApiProject.Domain.UnitTests.Products
 {
 	public class MoneyTests
 	{
