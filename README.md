@@ -1,4 +1,4 @@
-# Simple App - Magicsoft Asia
+# Assessment Question from Magicsoft Asia
 This project aims to demonstrate the usage of Clean Architecture with concern of OOP in .NET project.
 
 ## Author
